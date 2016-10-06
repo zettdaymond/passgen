@@ -32,26 +32,26 @@ whirlpool.hash = function(bytes, length)
 
     switch (typeof bytes)
     {
-        case 'object':
-            for (var i = 0; i < (length || bytes.length); i++)
-                if (!push(bytes[i]))
-                    return
-            break
+    case 'object':
+        for (var i = 0; i < (length || bytes.length); i++)
+            if (!push(bytes[i]))
+                return
+        break
 
-        case 'string':
-            for (var i = 0; i < (length || bytes.length); i++)
-                if (!push(bytes.charCodeAt(i)))
-                    return
-            break
+    case 'string':
+        for (var i = 0; i < (length || bytes.length); i++)
+            if (!push(bytes.charCodeAt(i)))
+                return
+        break
 
-        case 'function':
-            for (var i = 0; i < length; i++)
-                if (!push(bytes(i)))
-                    return
-            break
+    case 'function':
+        for (var i = 0; i < length; i++)
+            if (!push(bytes(i)))
+                return
+        break
 
-        default:
-            return
+    default:
+        return
     }
 
     reader.finish()
@@ -79,9 +79,9 @@ whirlpool.ebox = function(i)
 
     switch(i)
     {
-        case 0:		return 1
-        case 0xf:	return 0
-        default:	return mul(ebox(i - 1), 0xb)
+    case 0:		return 1
+    case 0xf:	return 0
+    default:	return mul(ebox(i - 1), 0xb)
     }
 }
 
@@ -113,8 +113,8 @@ whirlpool.input = function(row)
     var m = whirlpool.matrix(n, n)
 
     for (var i = 0; i < n; i++)
-    for (var j = 0; j < n; j++)
-        m[i][j] = row[i*n + j]
+        for (var j = 0; j < n; j++)
+            m[i][j] = row[i*n + j]
 
     return m
 }
@@ -125,8 +125,8 @@ whirlpool.output = function(matrix)
     var row = new Array(n)
 
     for (var i = 0; i < n; i++)
-    for (var j = 0; j < n; j++)
-        row[i*n + j] = matrix[i][j]
+        for (var j = 0; j < n; j++)
+            row[i*n + j] = matrix[i][j]
 
     return row
 }
@@ -137,8 +137,8 @@ whirlpool.apply = function(a)
     var b = whirlpool.matrix(n, n)
 
     for (var i = 0; i < n; i++)
-    for (var j = 0; j < n; j++)
-        b[i][j] = whirlpool.sbox(a[i][j])
+        for (var j = 0; j < n; j++)
+            b[i][j] = whirlpool.sbox(a[i][j])
 
     return b
 }
@@ -149,8 +149,8 @@ whirlpool.rotate = function(a)
     var b = whirlpool.matrix(n, n)
 
     for (var j = 0; j < n; j++)
-    for (var i = 0; i < n; i++)
-        b[i][j] = a[(i + n - j) % n][j]
+        for (var i = 0; i < n; i++)
+            b[i][j] = a[(i + n - j) % n][j]
 
     return b
 }
@@ -164,9 +164,9 @@ whirlpool.diffuse = function(a)
     var row = whirlpool.diffuserow
 
     for (var i = 0; i < n; i++)
-    for (var j = 0; j < n; j++)
-    for (var k = 0; k < n; k++)
-        b[i][j] ^= mul(a[i][k], row[(j - k + n) % n])
+        for (var j = 0; j < n; j++)
+            for (var k = 0; k < n; k++)
+                b[i][j] ^= mul(a[i][k], row[(j - k + n) % n])
 
     return b
 }
@@ -295,8 +295,8 @@ whirlpool.compressor.prototype.push = function(block)
     var n = whirlpool.dim
 
     for (var i = 0; i < n; i++)
-    for (var j = 0; j < n; j++)
-        h[i][j] ^= c[i][j] ^ m[i][j]
+        for (var j = 0; j < n; j++)
+            h[i][j] ^= c[i][j] ^ m[i][j]
 }
 
 // Creates a hub that accepts a sequence of bytes and returns blocks of needed size.
@@ -336,8 +336,8 @@ whirlpool.matrix = function(rows, cols, init)
         m[i] = new Array(cols)
 
     for (var i = 0; i < rows; i++)
-    for (var j = 0; j < cols; j++)
-        m[i][j] = init || 0
+        for (var j = 0; j < cols; j++)
+            m[i][j] = init || 0
 
     return m
 }
@@ -365,8 +365,8 @@ whirlpool.add = function(a, b)
     var c = whirlpool.matrix(n, n)
 
     for (var i = 0; i < n; i++)
-    for (var j = 0; j < n; j++)
-        c[i][j] = a[i][j] ^ b[i][j]
+        for (var j = 0; j < n; j++)
+            c[i][j] = a[i][j] ^ b[i][j]
 
     return c
 }
@@ -425,11 +425,11 @@ charset.apply = function(list, cs) {
     return res;
 }
 
-function getPasswordCS(str, key) {
-    var h = whirlpool.hash(str + whirlpool.hash(key));
-    var pass = charset.apply(h, charset.alphaNumeric);
-    return String.fromCharCode.apply(this, pass);
-}
+//function getPasswordCS(str, key) {
+//    var h = whirlpool.hash(str + whirlpool.hash(key));
+//    var pass = charset.apply(h, charset.alphaNumeric);
+//    return String.fromCharCode.apply(this, pass);
+//}
 
 
 function sign(x) {
@@ -439,3 +439,19 @@ function sign(x) {
 function getsign(num) {
     return sign(num/255.0 - 0.5);
 }
+
+function getVars(str, key) {
+    var h = whirlpool.hash(str + whirlpool.hash(key));
+    var pass = charset.apply(h, charset.alphaNumeric);
+    pass = String.fromCharCode.apply(this, pass);
+
+    var tuple = {};
+
+    tuple.color = h[0]*0xFFFF + h[1]*0xFF +h[2];
+    var color_inverse = 0xFFFFFF - color;
+    tuple.rotate = ((h[0] / 255.0) - (h[1] / 255.0) + (h[2] / 255.0)) / 2 * 90 * getsign(h[3]);
+    tuple.pass = pass;
+
+    return tuple;
+}
+

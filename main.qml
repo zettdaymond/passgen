@@ -12,10 +12,20 @@ ApplicationWindow {
     title: qsTr("Passgen")
 
     property int passLen
+    property string inverseColor: back.color
 
     Rectangle {
+        id : back
         color: window.color
         anchors.fill: parent
+        Text {
+            text: qsTr("S4mpl3 T3xt")
+            color: "black"
+            anchors.centerIn: parent
+            transform: Rotation {
+                id : rot
+            }
+        }
         GridLayout {
             id: columnLayout1
             //anchors.horizontalCenter: parent.horizontalCenter
@@ -37,6 +47,7 @@ ApplicationWindow {
                     id: master_pass
                     placeholderText: qsTr("Master pass")
                     width: window.width * 0.75
+                    echoMode: TextInput.Password
                     onTextChanged: {
                         updatePass();
                     }
@@ -46,6 +57,9 @@ ApplicationWindow {
                     id: passwd
                     placeholderText: qsTr("Your password")
                     width: window.width * 0.75
+                    readOnly: true
+                    horizontalAlignment: TextInput.AlignLeft
+
                 }
                 Row {
                     spacing: 10
@@ -73,7 +87,15 @@ ApplicationWindow {
         passLen = 32;
     }
     function updatePass() {
-        var pass = Logic.getPasswordCS(resource_id.text, master_pass.text);
-        passwd.text = pass.slice(0, passLen);
+        //var pass = Logic.getPasswordCS(resource_id.text, master_pass.text);
+        //passwd.text = pass.slice(0, passLen);
+        var tup =  Logic.getVars(resource_id.text, master_pass.text);
+        passwd.text = tup.pass.slice(0, passLen);;
+        back.color = '#' + tup.color.toString(16);
+
+        inverseColor = (0xFFFFFF - tup.color).toString(16);
+        rot.angle = tup.rotate;
+
     }
+
 }
