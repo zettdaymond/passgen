@@ -86,15 +86,31 @@ ApplicationWindow {
     Component.onCompleted: {
         passLen = 32;
     }
+
+
+    function getPasswordCS(str, key) {
+        //console.log("str hash :", Logic.whirlpool.hash(str));
+        //console.log("str + key : ", str + Logic.whirlpool.hash(key))
+        //console.log("str + key hash :", Logic.whirlpool.hash(str + Logic.whirlpool.hash(key)));
+
+        var h = whirlpool_hash.hash(str + whirlpool_hash.hash(key));
+        var pass = Logic.charset.apply(h, Logic.charset.alphaNumeric);
+        return String.fromCharCode.apply(this, pass);
+    }
+
     function updatePass() {
+        //print first pass
+        //var h = Logic.whirlpool.hash(resource_id.text);
+        //console.log( h );
         //var pass = Logic.getPasswordCS(resource_id.text, master_pass.text);
         //passwd.text = pass.slice(0, passLen);
-        var tup =  Logic.getVars(resource_id.text, master_pass.text);
-        passwd.text = tup.pass.slice(0, passLen);;
-        back.color = '#' + tup.color.toString(16);
+        //var tup =  Logic.getVars(resource_id.text, master_pass.text);
+        //passwd.text = tup.pass.slice(0, passLen);;
+        //back.color = '#' + tup.color.toString(16);
 
-        inverseColor = (0xFFFFFF - tup.color).toString(16);
-        rot.angle = tup.rotate;
+        //inverseColor = (0xFFFFFF - tup.color).toString(16);
+        //rot.angle = tup.rotate;
+        passwd.text = getPasswordCS(resource_id.text, master_pass.text).slice(0, passLen);
 
     }
 

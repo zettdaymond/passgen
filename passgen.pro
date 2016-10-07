@@ -2,7 +2,11 @@ QT += qml quick
 
 CONFIG += c++11
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    whirlpoolhash.cpp \
+    hash/whirlpool.c \
+    hash/whirlpool_sbox.c \
+    hash/byte_order.c
 
 RESOURCES += qml.qrc
 
@@ -13,3 +17,9 @@ QML_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+HEADERS += \
+    whirlpoolhash.h \
+    hash/whirlpool.h \
+    hash/byte_order.h \
+    hash/ustd.h
