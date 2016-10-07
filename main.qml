@@ -26,11 +26,29 @@ ApplicationWindow {
         anchors.centerIn: parent
         anchors.verticalCenterOffset : -20
 
+        Behavior on color {
+            ColorAnimation {
+                easing {
+                    type: Easing.Linear
+                    period: 0.5
+                }
+            }
+        }
+
         transform: Rotation {
             id : rot
             origin.x : sample_text.width / 2
             origin.y : sample_text.height / 2
             angle: -40
+            Behavior on angle {
+                RotationAnimation{
+
+                    easing {
+                        type: Easing.Linear
+                        period: 0.5
+                    }
+                }
+            }
         }
     }
     GridLayout {
