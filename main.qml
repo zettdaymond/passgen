@@ -7,7 +7,7 @@ import "utils.js" as Logic
 ApplicationWindow {
     id: window
     visible: true
-    width: 400
+    width: 450
     height: 200
     title: qsTr("Passgen")
 
@@ -58,17 +58,27 @@ ApplicationWindow {
                 }
 
             }
-            TextField {
-                id: passwd
-                placeholderText: qsTr("Your password")
-                width: window.width * 0.75
-                readOnly: true
-                horizontalAlignment: TextInput.AlignLeft
+            Row {
+                TextField {
+                    id: passwd
+                    placeholderText: qsTr("Your password")
+                    width: window.width * 0.75
+                    readOnly: true
+                    horizontalAlignment: TextInput.AlignLeft
 
+                }
+                CheckBox {
+                    text: qsTr("H")
+                    onCheckStateChanged: {
+                        passwd.echoMode = (passwd.echoMode == TextInput.Password) ?
+                                    TextInput.Normal :
+                                    TextInput.Password
+                    }
+                }
             }
             Row {
                 spacing: 10
-                Button {
+                RadioButton {
                     id: char16
                     text: qsTr("16 chars")
                     onClicked: {
@@ -76,9 +86,10 @@ ApplicationWindow {
                         updatePass();
                     }
                 }
-                Button {
+                RadioButton {
                     id: char32
                     text: qsTr("32 chars")
+                    checked: true
                     onClicked: {
                         passLen = 32;
                         updatePass();
@@ -110,7 +121,6 @@ ApplicationWindow {
         passwd.text = pass.slice(0, passLen);
         rot.angle = orientation_angle;
         sample_text.color = '#' + color.toString(16);
-        sample_text.scale = 2;
 
     }
 
