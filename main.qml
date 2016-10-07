@@ -69,6 +69,11 @@ ApplicationWindow {
                     readOnly: true
                     horizontalAlignment: TextInput.AlignLeft
                     echoMode : TextInput.Password
+                    onFocusChanged: {
+                        if(focus) {
+                            selectAll();
+                        }
+                    }
 
                 }
                 CheckBox {
