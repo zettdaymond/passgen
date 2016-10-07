@@ -2,6 +2,7 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls.Material 2.0
+import QtQuick.Window 2.0
 import "utils.js" as Logic
 
 ApplicationWindow {
@@ -10,6 +11,7 @@ ApplicationWindow {
     width: 450
     height: 200
     title: qsTr("Passgen")
+
 
     Material.accent: Material.Red
     Material.theme: Material.Dark
@@ -42,6 +44,7 @@ ApplicationWindow {
             TextField {
                 id: resource_id
                 placeholderText: qsTr("Resource name")
+                focus: true
                 width: window.width * 0.75
                 onTextChanged: {
                     updatePass();
@@ -65,10 +68,11 @@ ApplicationWindow {
                     width: window.width * 0.75
                     readOnly: true
                     horizontalAlignment: TextInput.AlignLeft
+                    echoMode : TextInput.Password
 
                 }
                 CheckBox {
-                    text: qsTr("H")
+                    checked: true
                     onCheckStateChanged: {
                         passwd.echoMode = (passwd.echoMode == TextInput.Password) ?
                                     TextInput.Normal :
@@ -99,6 +103,10 @@ ApplicationWindow {
         }
     }
     Component.onCompleted: {
+        //place in the center of the screen
+        setX(Screen.width / 2 - width / 2);
+        setY(Screen.height / 2 - height / 2);
+
         passLen = 32;
     }
 
@@ -121,10 +129,6 @@ ApplicationWindow {
         passwd.text = pass.slice(0, passLen);
         rot.angle = orientation_angle;
         sample_text.color = '#' + color.toString(16);
-
-    }
-
-    function startRotation() {
 
     }
 
