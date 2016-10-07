@@ -17,12 +17,12 @@ QVariantList WhirlpoolHash::hash(const QString& str)
     rhash_whirlpool_update(&w, cStr, size);
     unsigned char res[64];
     rhash_whirlpool_final(&w, res);
-    mutex.unlock();
 
     QVariantList list;
     for(auto& c : res) {
         list << c;
     }
 
+    mutex.unlock();
     return list;
 }
