@@ -4,5 +4,15 @@
         <file>utils.js</file>
         <file>qtquickcontrols2.conf</file>
         <file>assets/icon.png</file>
+        <file>PassgenPage.qml</file>
+        <file>assets/menu.png</file>
+        <file>assets/+material/drawer.png</file>
+        <file>assets/+material/drawer@2x.png</file>
+        <file>assets/+material/drawer@3x.png</file>
+        <file>assets/+material/drawer@4x.png</file>
+        <file>assets/+material/menu.png</file>
+        <file>assets/+material/menu@2x.png</file>
+        <file>assets/+material/menu@3x.png</file>
+        <file>assets/+material/menu@4x.png</file>
     </qresource>
 </RCC>
