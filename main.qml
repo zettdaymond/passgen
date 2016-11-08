@@ -33,6 +33,20 @@ ApplicationWindow {
                 Layout.fillWidth: true
             }
             ToolButton {
+               contentItem: Image {
+                   fillMode: Image.Pad
+                   horizontalAlignment: Image.AlignHCenter
+                   verticalAlignment: Image.AlignVCenter
+                   source: "qrc:/assets/copy.png"
+               }
+               visible: passgenPage.passFieldFocused
+               enabled: passgenPage.passFieldFocused
+               onClicked: {
+                   passgenPage.copyPassToClipboard();
+               }
+            }
+
+            ToolButton {
                 contentItem: Image {
                     fillMode: Image.Pad
                     horizontalAlignment: Image.AlignHCenter
@@ -60,6 +74,7 @@ ApplicationWindow {
         }
     }
     PassgenPage {
+        id :passgenPage
         anchors.fill: parent
     }
 

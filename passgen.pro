@@ -1,4 +1,4 @@
-QT += qml quick
+QT += qml quick quickcontrols2
 
 CONFIG += c++11
 
@@ -6,7 +6,8 @@ SOURCES += main.cpp \
     whirlpoolhash.cpp \
     hash/whirlpool.c \
     hash/whirlpool_sbox.c \
-    hash/byte_order.c
+    hash/byte_order.c \
+    clipboard.cpp
 
 RESOURCES += qml.qrc
 
@@ -22,4 +23,5 @@ HEADERS += \
     whirlpoolhash.h \
     hash/whirlpool.h \
     hash/byte_order.h \
-    hash/ustd.h
+    hash/ustd.h \
+    clipboard.h

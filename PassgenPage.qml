@@ -1,12 +1,12 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
-import QtQuick.Controls.Material 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Window 2.0
 import "utils.js" as Logic
 
 Pane {
     property int passLen
+    property bool passFieldFocused : false
 
     Text {
         id : sample_text
@@ -80,6 +80,10 @@ Pane {
                     onFocusChanged: {
                         if(focus) {
                             selectAll();
+                            passFieldFocused = true
+                        }
+                        else {
+                            passFieldFocused = false
                         }
                     }
 
@@ -143,5 +147,10 @@ Pane {
         rot.angle = orientation_angle;
         sample_text.color = '#' + color.toString(16);
 
+    }
+    function copyPassToClipboard() {
+        //passwd.echoMode = TextInput.Normal
+        clipboard.postText(passwd.text);
+        //passwd.echoMode = TextInput.Password
     }
 }
