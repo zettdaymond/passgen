@@ -41,6 +41,7 @@ Pane {
             }
         }
     }
+
     GridLayout {
         id: columnLayout1
         //anchors.horizontalCenter: parent.horizontalCenter
@@ -57,6 +58,9 @@ Pane {
                 onTextChanged: {
                     updatePass();
                 }
+                onEditingFinished: {
+                    Qt.inputMethod.hide();
+                }
 
             }
             TextField {
@@ -66,6 +70,9 @@ Pane {
                 echoMode: TextInput.Password
                 onTextChanged: {
                     updatePass();
+                }
+                onEditingFinished: {
+                    Qt.inputMethod.hide();
                 }
 
             }
@@ -86,14 +93,19 @@ Pane {
                             passFieldFocused = false
                         }
                     }
-
+                    onEditingFinished: {
+                        Qt.inputMethod.hide();
+                    }
                 }
                 CheckBox {
                     checked: true
                     onCheckStateChanged: {
-                        passwd.echoMode = (passwd.echoMode == TextInput.Password) ?
-                                    TextInput.Normal :
-                                    TextInput.Password
+                        if(checked) {
+                            passwd.echoMode = TextInput.Password
+                        }
+                        else {
+                            passwd.echoMode = TextInput.Normal
+                        }
                     }
                 }
             }
@@ -149,8 +161,6 @@ Pane {
 
     }
     function copyPassToClipboard() {
-        //passwd.echoMode = TextInput.Normal
         clipboard.postText(passwd.text);
-        //passwd.echoMode = TextInput.Password
     }
 }

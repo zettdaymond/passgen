@@ -9,8 +9,8 @@ import QtQuick.Controls.Universal 2.0
 ApplicationWindow {
     id: window
     visible: true
-    width: 640
-    height: 480
+    width: Screen.width
+    height: Screen.height
     title: qsTr("Passgen")
 
     Material.accent: Material.Red
