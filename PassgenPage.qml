@@ -4,128 +4,140 @@ import QtQuick.Layouts 1.0
 import QtQuick.Window 2.0
 import "utils.js" as Logic
 
-Pane {
+Flickable {
+    id: flickable
     property int passLen
     property bool passFieldFocused : false
+    contentHeight:  pane.height + (Qt.inputMethod.visible ?
+                        Qt.inputMethod.keyboardRectangle.height :
+                        0)
 
-    Text {
-        id : sample_text
-        text: qsTr("S4mpl3 T3xt")
-        color : "grey"
-        scale: 1.7
-        anchors.centerIn: parent
-        anchors.verticalCenterOffset : -20
 
-        Behavior on color {
-            ColorAnimation {
-                easing {
-                    type: Easing.Linear
-                    period: 0.5
-                }
-            }
-        }
+    Pane {
+        id : pane
 
-        transform: Rotation {
-            id : rot
-            origin.x : sample_text.width / 2
-            origin.y : sample_text.height / 2
-            angle: -40
-            Behavior on angle {
-                RotationAnimation{
+        width: flickable.width
+        height: flickable.height
 
+        Text {
+            id : sample_text
+            text: qsTr("S4mpl3 T3xt")
+            color : "grey"
+            scale: 1.7
+            anchors.centerIn: parent
+            anchors.verticalCenterOffset : -20
+
+            Behavior on color {
+                ColorAnimation {
                     easing {
                         type: Easing.Linear
                         period: 0.5
                     }
                 }
             }
+
+            transform: Rotation {
+                id : rot
+                origin.x : sample_text.width / 2
+                origin.y : sample_text.height / 2
+                angle: -40
+                Behavior on angle {
+                    RotationAnimation{
+
+                        easing {
+                            type: Easing.Linear
+                            period: 0.5
+                        }
+                    }
+                }
+            }
         }
-    }
 
-    GridLayout {
-        id: columnLayout1
-        //anchors.horizontalCenter: parent.horizontalCenter
-        //anchors.topMargin: 20
-        //anchors.top: parent.top
-        anchors.centerIn: parent
-        //anchors.
-        Column {
-            TextField {
-                id: resource_id
-                placeholderText: qsTr("Resource name")
-                focus: true
-                width: window.width * 0.75
-                onTextChanged: {
-                    updatePass();
-                }
-                onEditingFinished: {
-                    Qt.inputMethod.hide();
-                }
-
-            }
-            TextField {
-                id: master_pass
-                placeholderText: qsTr("Master pass")
-                width: window.width * 0.75
-                echoMode: TextInput.Password
-                onTextChanged: {
-                    updatePass();
-                }
-                onEditingFinished: {
-                    Qt.inputMethod.hide();
-                }
-
-            }
-            Row {
+        GridLayout {
+            id: columnLayout1
+            //anchors.horizontalCenter: parent.horizontalCenter
+            //anchors.topMargin: 20
+            //anchors.top: parent.top
+            anchors.centerIn: parent
+            //anchors.
+            Column {
                 TextField {
-                    id: passwd
-                    placeholderText: qsTr("Your password")
+                    id: resource_id
+                    placeholderText: qsTr("Resource name")
+                    focus: true
                     width: window.width * 0.75
-                    readOnly: true
-                    horizontalAlignment: TextInput.AlignLeft
-                    echoMode : TextInput.Password
-                    onFocusChanged: {
-                        if(focus) {
-                            selectAll();
-                            passFieldFocused = true
-                        }
-                        else {
-                            passFieldFocused = false
-                        }
+                    onTextChanged: {
+                        updatePass();
                     }
                     onEditingFinished: {
                         Qt.inputMethod.hide();
                     }
+
                 }
-                CheckBox {
-                    checked: true
-                    onCheckStateChanged: {
-                        if(checked) {
-                            passwd.echoMode = TextInput.Password
+                TextField {
+                    id: master_pass
+                    placeholderText: qsTr("Master pass")
+                    width: window.width * 0.75
+                    echoMode: TextInput.Password
+                    onTextChanged: {
+                        updatePass();
+                    }
+                    onEditingFinished: {
+                        Qt.inputMethod.hide();
+                    }
+
+                }
+                Row {
+                    TextField {
+                        id: passwd
+                        placeholderText: qsTr("Your password")
+                        width: window.width * 0.75
+                        readOnly: true
+                        horizontalAlignment: TextInput.AlignLeft
+                        echoMode : TextInput.Password
+                        onFocusChanged: {
+                            if(focus) {
+                                selectAll();
+                                passFieldFocused = true
+                            }
+                            else {
+                                passFieldFocused = false
+                            }
                         }
-                        else {
-                            passwd.echoMode = TextInput.Normal
+                        onEditingFinished: {
+                            Qt.inputMethod.hide();
+                        }
+                    }
+                    CheckBox {
+                        checked: true
+                        onCheckStateChanged: {
+                            if(checked) {
+                                passwd.echoMode = TextInput.Password
+                            }
+                            else {
+                                passwd.echoMode = TextInput.Normal
+                            }
                         }
                     }
                 }
-            }
-            Row {
-                spacing: 10
-                RadioButton {
-                    id: char16
-                    text: qsTr("16 chars")
-                    onClicked: {
-                        passLen = 16;
-                        updatePass();
+                Row {
+                    spacing: 10
+                    RadioButton {
+                        id: char16
+                        text: qsTr("16 chars")
+                        onClicked: {
+                            passLen = 16;
+                            updatePass();
+                        }
                     }
-                }
-                RadioButton {
-                    id: char32
-                    text: qsTr("32 chars")
-                    checked: true
-                    onClicked: {
-                        passLen = 32;
-                        updatePass();
+                    RadioButton {
+                        id: char32
+                        text: qsTr("32 chars")
+                        checked: true
+                        onClicked: {
+                            passLen = 32;
+                            updatePass();
+                        }
                     }
                 }
             }

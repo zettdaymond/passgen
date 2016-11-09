@@ -73,9 +73,11 @@ ApplicationWindow {
 
         }
     }
-    PassgenPage {
-        id :passgenPage
+    StackView {
         anchors.fill: parent
+        initialItem: PassgenPage {
+            id :passgenPage
+        }
     }
 
 
@@ -105,5 +107,8 @@ ApplicationWindow {
                 font.pixelSize: 12
             }
         }
+    }
+    Component.onCompleted: {
+
     }
 }
