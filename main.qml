@@ -11,7 +11,6 @@ ApplicationWindow {
     visible: true
     width: 800
     height: 600
-    title: qsTr("Passgen")
 
     Material.accent: Material.Red
     Material.primary: Material.Red
@@ -35,17 +34,18 @@ ApplicationWindow {
                 Layout.fillWidth: true
             }
             ToolButton {
-               contentItem: Image {
-                   fillMode: Image.Pad
-                   horizontalAlignment: Image.AlignHCenter
-                   verticalAlignment: Image.AlignVCenter
-                   source: "qrc:/assets/copy.png"
-               }
-               visible: passgenPage.passFieldFocused
-               enabled: passgenPage.passFieldFocused
-               onClicked: {
-                   passgenPage.copyPassToClipboard();
-               }
+                contentItem: Image {
+                    fillMode: Image.Pad
+                    horizontalAlignment: Image.AlignHCenter
+                    verticalAlignment: Image.AlignVCenter
+                    source: "qrc:/assets/copy.png"
+                }
+                visible: passgenPage.passFieldFocused
+                enabled: passgenPage.passFieldFocused
+                onClicked: {
+                    passgenPage.copyPassToClipboard();
+                    copiedPopup.open();
+                }
             }
 
             ToolButton {
@@ -77,7 +77,8 @@ ApplicationWindow {
     }
     PassgenPage {
         id :passgenPage
-        anchors.fill: parent
+        width: parent.width
+        height: parent.height
     }
 
 
@@ -107,5 +108,33 @@ ApplicationWindow {
                 font.pixelSize: 12
             }
         }
+    }
+
+    Popup {
+        id: copiedPopup
+        x: (window.width - width) / 2
+        y: 0
+        width: Math.min(window.width, window.height) / 3 * 2
+        contentHeight: copiedPopupContent.height
+        Label {
+            id : copiedPopupContent
+            width: copiedPopup.availableWidth
+            text: "Password copied."
+            wrapMode: Label.Wrap
+            font.pixelSize: 12
+        }
+        Timer {
+            id : copiedShowTime
+            interval: 2500 //s
+            onTriggered: {
+                copiedPopup.close()
+            }
+        }
+        onVisibleChanged: {
+            if(visible){
+                copiedShowTime.restart();
+            }
+        }
+
     }
 }
