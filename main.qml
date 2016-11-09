@@ -9,17 +9,19 @@ import QtQuick.Controls.Universal 2.0
 ApplicationWindow {
     id: window
     visible: true
-    width: Screen.width
-    height: Screen.height
+    width: 800
+    height: 600
     title: qsTr("Passgen")
 
     Material.accent: Material.Red
     Material.primary: Material.Red
 
     header  : ToolBar {
+        id: header
         RowLayout {
             spacing: 20
             anchors.fill: parent
+            focus: false
 
             //dummy
             Label { }
@@ -85,7 +87,7 @@ ApplicationWindow {
         modal: true
         focus: true
         x: (window.width - width) / 2
-        y: window.height / 6
+        y: (window.height - aboutColumn.height) / 2 - header.height
         width: Math.min(window.width, window.height) / 3 * 2
         contentHeight: aboutColumn.height
 
