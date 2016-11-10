@@ -8,7 +8,10 @@
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QGuiApplication::setApplicationName("Passgen");
+    QGuiApplication::setOrganizationName("Zettday");
+    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
     QGuiApplication app(argc, argv);
 	app.setWindowIcon( QIcon{":/assets/icon.png"});
 

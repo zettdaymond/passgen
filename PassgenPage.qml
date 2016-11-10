@@ -1,11 +1,10 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
-import QtQuick.Layouts 1.0
-import QtQuick.Window 2.0
 import "utils.js" as Logic
 
 Pane {
-    property int passLen
+    id: pane
+    property int passLen : 32
     property bool passFieldFocused : false
 
     Text {
@@ -42,37 +41,27 @@ Pane {
         }
     }
 
-    GridLayout {
+    Grid {
         id: columnLayout1
-        //anchors.horizontalCenter: parent.horizontalCenter
-        //anchors.topMargin: 20
-        //anchors.top: parent.top
         anchors.centerIn: parent
-        //anchors.
         Column {
             TextField {
                 id: resource_id
                 placeholderText: qsTr("Resource name")
                 focus: true
-                width: window.width * 0.75
+                width: pane.width * 0.75
                 onTextChanged: {
                     updatePass();
-                }
-                onEditingFinished: {
-                    Qt.inputMethod.hide();
                 }
 
             }
             TextField {
                 id: master_pass
                 placeholderText: qsTr("Master pass")
-                width: window.width * 0.75
+                width: pane.width * 0.75
                 echoMode: TextInput.Password
                 onTextChanged: {
                     updatePass();
-                }
-                onEditingFinished: {
-                    Qt.inputMethod.hide();
                 }
 
             }
@@ -80,7 +69,7 @@ Pane {
                 TextField {
                     id: passwd
                     placeholderText: qsTr("Your password")
-                    width: window.width * 0.75
+                    width: pane.width * 0.75
                     readOnly: true
                     horizontalAlignment: TextInput.AlignLeft
                     echoMode : TextInput.Password
@@ -92,9 +81,6 @@ Pane {
                         else {
                             passFieldFocused = false
                         }
-                    }
-                    onEditingFinished: {
-                        Qt.inputMethod.hide();
                     }
                 }
                 CheckBox {
@@ -131,14 +117,6 @@ Pane {
             }
         }
     }
-    Component.onCompleted: {
-        //place in the center of the screen
-        setX(Screen.width / 2 - width / 2);
-        setY(Screen.height / 2 - height / 2);
-
-        passLen = 32;
-    }
-
 
     function getPasswordCS(str, key) {
         var h = whirlpool_hash.hash(str + whirlpool_hash.hash(key));

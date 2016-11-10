@@ -11,16 +11,17 @@ ApplicationWindow {
     visible: true
     width: 800
     height: 600
+    title: "Passgen"
 
     Material.accent: Material.Red
     Material.primary: Material.Red
 
     header  : ToolBar {
-        id: header
+        id: headerToolBar
+
         RowLayout {
             spacing: 20
             anchors.fill: parent
-            focus: false
 
             //dummy
             Label { }
@@ -40,8 +41,10 @@ ApplicationWindow {
                     verticalAlignment: Image.AlignVCenter
                     source: "qrc:/assets/copy.png"
                 }
+
                 visible: passgenPage.passFieldFocused
                 enabled: passgenPage.passFieldFocused
+
                 onClicked: {
                     passgenPage.copyPassToClipboard();
                     copiedPopup.open();
@@ -75,10 +78,15 @@ ApplicationWindow {
 
         }
     }
-    PassgenPage {
-        id :passgenPage
-        width: parent.width
-        height: parent.height
+
+    StackView {
+        id: stackView
+        anchors.fill: parent
+        initialItem: PassgenPage {
+            id :passgenPage
+            width: parent.width
+            height: parent.height
+        }
     }
 
 
@@ -88,7 +96,7 @@ ApplicationWindow {
         modal: true
         focus: true
         x: (window.width - width) / 2
-        y: (window.height - aboutColumn.height) / 2 - header.height
+        y: (window.height - aboutColumn.height) / 2 - headerToolBar.height
         width: Math.min(window.width, window.height) / 3 * 2
         contentHeight: aboutColumn.height
 
