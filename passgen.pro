@@ -2,14 +2,22 @@ QT += qml quick
 
 CONFIG += c++11
 
-SOURCES += main.cpp \
-    whirlpoolhash.cpp \
-    hash/whirlpool.c \
-    hash/whirlpool_sbox.c \
-    hash/byte_order.c \
-    clipboard.cpp
+SOURCES += src/main.cpp \
+    src/whirlpoolhash.cpp \
+    src/hash/whirlpool.c \
+    src/hash/whirlpool_sbox.c \
+    src/hash/byte_order.c \
+    src/clipboard.cpp
 
-RESOURCES += qml.qrc
+android {
+    message(Build for android)
+    RESOURCES += qml_android.qrc
+}
+!android {
+    message(Build for desktop)
+    RESOURCES += qml_desktop.qrc
+}
+
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -20,11 +28,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    whirlpoolhash.h \
-    hash/whirlpool.h \
-    hash/byte_order.h \
-    hash/ustd.h \
-    clipboard.h
+    src/whirlpoolhash.h \
+    src/hash/whirlpool.h \
+    src/hash/byte_order.h \
+    src/hash/ustd.h \
+    src/clipboard.h
 
 DISTFILES += \
     android/AndroidManifest.xml \

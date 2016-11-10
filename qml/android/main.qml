@@ -122,7 +122,7 @@ ApplicationWindow {
         id: copiedPopup
         x: (window.width - width) / 2
         y: 0
-        width: Math.min(window.width, window.height) / 3 * 2
+        width: Math.min(window.width, window.height) / 2
         contentHeight: copiedPopupContent.height
         Label {
             id : copiedPopupContent

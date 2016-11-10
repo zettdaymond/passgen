@@ -1,10 +1,10 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>utils.js</file>
-        <file>qtquickcontrols2.conf</file>
+        <file alias="main.qml">qml/desktop/main.qml</file>
+        <file alias="PassgenPage.qml">qml/PassgenPage.qml</file>
+        <file alias="utils.js">qml/utils.js</file>
+        <file alias="qtquickcontrols2.conf">qml/qtquickcontrols2.conf</file>
         <file>assets/icon.png</file>
-        <file>PassgenPage.qml</file>
         <file>assets/menu.png</file>
         <file>assets/+material/drawer.png</file>
         <file>assets/+material/drawer@2x.png</file>

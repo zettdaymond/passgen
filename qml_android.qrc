@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="main.qml">qml/android/main.qml</file>
+        <file alias="PassgenPage.qml">qml/PassgenPage.qml</file>
+        <file alias="utils.js">qml/utils.js</file>
+        <file alias="qtquickcontrols2.conf">qml/qtquickcontrols2.conf</file>
+        <file>assets/icon.png</file>
+        <file>assets/menu.png</file>
+        <file>assets/+material/drawer.png</file>
+        <file>assets/+material/drawer@2x.png</file>
+        <file>assets/+material/drawer@3x.png</file>
+        <file>assets/+material/drawer@4x.png</file>
+        <file>assets/+material/menu.png</file>
+        <file>assets/+material/menu@2x.png</file>
+        <file>assets/+material/menu@3x.png</file>
+        <file>assets/+material/menu@4x.png</file>
+        <file>assets/copy.png</file>
+        <file>assets/+material/copy.png</file>
+        <file>assets/+material/copy@2x.png</file>
+        <file>assets/+material/copy@3x.png</file>
+        <file>assets/+material/copy@4x.png</file>
+    </qresource>
+</RCC>
